@@ -54,7 +54,11 @@ const paperSchema = new mongoose.Schema({
     Createdby: {
         type: String,
         required: true,
-    }
+    },
+    set:{
+        type: Boolean,
+        default: false
+      }
 });
 
 const paper = mongoose.model('paper', paperSchema, 'Paperinfo');

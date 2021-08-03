@@ -1,0 +1,85 @@
+<div *ngIf="paper" class="d-flex shadow m-3 mt-5ny6 ml-5 mr-5 bg-light justify-content-around">
+    <div class="p-3 display-6 text-center"> {{paper.testname}}</div>
+</div>
+
+<div *ngIf="!paper.set" class="d-flex justify-content-around">
+    <div *ngIf="paper" class="flex-column col-md-8 shadow m-5 p-3 bg-white align-items-center">
+        <div *ngFor="let c of Count;let i = index;" class="card w-60 justify-content-center shadow m-5  p-3 bg-white ">
+            <form autocomplete="off" #myForm="ngForm">
+                <div class="d-flex-column card-body justify-content-around">
+                    <h5 class="card-title">{{i+1}}. Question</h5>
+                    <div class="card-text">
+                        <div class="d-flex m-2 p-2 row">
+                            <mat-form-field class="d-flex-column col-md-12">
+                                <mat-label>Question</mat-label>
+                                <textarea type="text" name="question" ngModel matInput></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div class="d-flex m-2 p-2 row">
+                            <mat-radio-group type="text" name="right" ngModel>
+                                <mat-radio-button value="1"></mat-radio-button>
+                                <mat-form-field class="d-flex-column m-1 p-1 col-md-5">
+                                    <mat-label class="mt-2">Enter options</mat-label>
+                                    <textarea class="mt-2" type="text" name="option1" ngModel matInput></textarea>
+                                </mat-form-field>
+                                <mat-radio-button class="ml-2" value="2"> </mat-radio-button>
+                                <mat-form-field class="d-flex-column   m-1 p-1  col-md-5">
+                                    <mat-label class="mt-2">Enter options</mat-label>
+                                    <textarea class="mt-2" type="text" name="option2" ngModel matInput></textarea>
+                                </mat-form-field>
+                                <br>
+                                <mat-radio-button value="3"></mat-radio-button>
+                                <mat-form-field class="d-flex-column m-1 p-1 col-md-5">
+                                    <mat-label class="mt-2">Enter options</mat-label>
+                                    <textarea class="mt-2" type="text" name="option3" ngModel matInput></textarea>
+                                </mat-form-field>
+                                <mat-radio-button class="ml-2" value="4"> </mat-radio-button>
+                                <mat-form-field class="d-flex-column   m-1 p-1  col-md-5">
+                                    <mat-label class="mt-2">Enter options</mat-label>
+                                    <textarea class="mt-2" type="text" name="option4" ngModel matInput></textarea>
+                                </mat-form-field>
+                            </mat-radio-group>
+                            <div class="form-group d-flex ">
+                                <button mat-button class="col-md-12" (click)="onAdd(myForm,i+1)" color="primary"
+                                    type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-group d-flex justify-content-around">
+            <button mat-raised-button color="primary" (click)="subQ()" type="submit">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="paper.set" class="d-flex justify-content-around">
+    <div *ngIf="paper" class="flex-column col-md-8 shadow m-5 p-3 bg-white align-items-center">
+        <div *ngFor="let q of Qs ;let i = index;" class="card w-60 justify-content-center shadow m-5  p-3 bg-white ">
+            <div class="d-flex-column mt-2 card-body justify-content-around">
+                <h5 class="card-title">{{i+1}}. Question</h5>
+                <div class="card-text">
+                    <div class="d-flex m-2 p-2 row">
+                        <input class="form-control bg-white" type="text" placeholder="{{q.question}}" readonly>
+                    </div>
+                    <div class="d-flex m-2 mt-2 p-2 row">
+                        <input class="form-control col-md-5 ml-5 p-2 bg-white" type="text" placeholder="1. {{q.option1}}" readonly>
+                        <input class="form-control col-md-5 ml-3 p-2 bg-white" type="text" placeholder="2. {{q.option2}}" readonly>
+                    </div>
+                    <div class="d-flex m-2 p-2 row">
+                        <input class="form-control col-md-5 ml-5 p-2 bg-white" type="text" placeholder="3. {{q.option3}}" readonly>
+                        <input class="form-control col-md-5 ml-3 p-2 bg-white" type="text" placeholder="4. {{q.option4}}" readonly>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-around ">
+            <button mat-stroked-button (click)="gotoAd()" color="primary" type="submit">Exit</button>
+        </div>
+    </div>
+</div>

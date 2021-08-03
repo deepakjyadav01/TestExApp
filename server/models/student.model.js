@@ -18,6 +18,14 @@ const studentSchema = new mongoose.Schema({
     required: true,
     minLength: [6,'password should exceed than 6 characters'],
     maxlength:15
+  },
+  set:{
+    type: Boolean,
+    default: false
+  },
+  profileID:{
+    type: String,
+    default: "0"
   }
 });
 

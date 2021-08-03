@@ -3,7 +3,7 @@ require('../routes/route');
 require('../models/student.model');
 require('../models/paper.model');
 require('../models/questions.model')
-
+require('../models/StudentRes.model');
 
 //imports
 const mongoose = require('mongoose');
@@ -12,7 +12,8 @@ const StudentUser = require('../models/student.model');
 const sProfile = require('../models/studentProfile.model');
 const paper = require('../models/paper.model')
 const question = require('../models/questions.model');
-const marks = require('../models/questions.model');
+const marks = require('../models/marks.model');
+const response = require('../models/StudentRes.model');
 const validator = require('validator');
 
 
@@ -35,7 +36,7 @@ module.exports.register = async (req, res) => {
       res.status(400).send("passwords not matching");
     }
   } catch (error) {
-    res.status(400).send("inside student");
+    res.status(400).send("Inavlid username or username already taken");
   }
 }
 
@@ -48,7 +49,7 @@ module.exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
-      res.status(200).send("login successfull");
+      res.status(200).json(user);
     } else {
       res.status(400).send("please enter valid user details and try again");
     }
@@ -56,12 +57,27 @@ module.exports.login = async (req, res) => {
     res.status(400).send("invalid username")
   }
 }
+module.exports.setboolean = async (req, res) => {
+  try {
+    const value = await StudentUser.findOneAndUpdate({ username: req.params.user }, {$set:{set:"true"} },{new:true});
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).send("couldn't set boolean to true")
+  }
+}
+module.exports.setprofileID = async (req, res) => {
+  try {
+    const value = await StudentUser.findOneAndUpdate({ username: req.params.user }, {$set:{ profileID: req.params.ID } },{new:true});
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).send("cant setprofileID ")
+  }
+}
 
 module.exports.getStudent = async (req, res) => {
   try {
     const detail = await StudentUser.findOne({ username: req.params.user });
-    res.status(200).send("new User Created " + detail.username);
-
+    res.status(200).json(detail)
   } catch (error) {
     res.status(400).json(error);
   }
@@ -152,10 +168,52 @@ module.exports.addmarks = async (req, res) => {
     res.status(400).json(error);
   }
 }
+module.exports.addresponse = async (req, res) => {
+  try {
+    let data = new response({
+      name: req.body.name,
+      detail: req.body.detail,
+      response:[{
+        questionID: req.body.questionID,
+        rightans: req.body.rightans,
+      }] ,
+      testname: req.body.testname,
+    });
+
+    const profile = await data.save();
+    res.status(201).json(profile);
+
+  } catch (error) {
+    res.status(400).json(error);
+  }
+}
 
 module.exports.getmarks = async (req, res) => {
   try {
-    const detail = await marks.findById({ _id: req.params.id2 });
+    const detail = await marks.find({ fullname: req.params.name });
+    res.status(200).json(detail);
+
+  } catch (error) {
+    res.status(400).json(error);
+  }
+}
+module.exports.submit = async (req, res) => {
+  try {
+    const value = await marks.findOneAndUpdate({ _id: req.params.id }, {$set:{ submitted:"true"} },{new:true});
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).send("not set to true")
+  }
+}
+
+module.exports.marksbytest = async (req, res) => {
+  try {
+    const detail = await marks.find({ 
+      $and: [
+        {fullname: req.params.name},
+        { testname: req.params.testname }
+      ]
+       });
     res.status(200).json(detail);
 
   } catch (error) {

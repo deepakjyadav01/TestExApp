@@ -1,0 +1,50 @@
+<div class="p-3 display-6 text-center">Admin Register </div>
+<form autocomplete="off" (ngSubmit)="onReg(Reg)" #Reg="ngForm" class="d-flex mb-5 flex-column align-items-auto ">
+    <div class="form-group row m-1 p-1 ">
+        <mat-form-field appearance="fill">
+            <mat-label>Fullname</mat-label>
+            <input name="fullname" ngModel matInput type="text">
+        </mat-form-field>
+    </div>
+    <div class="form-group row m-1 p-1 ">
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input name="email" ngModel matInput type="text" placeholder="pat@example.com">
+        </mat-form-field>
+    </div>
+    <div class="form-group row m-1 p-1 ">
+        <mat-form-field appearance="fill">
+            <mat-label>password</mat-label>
+            <input name="password" ngModel matInput type="password">
+        </mat-form-field>
+    </div>
+    <div class="form-group row m-1 p-1 ">
+        <mat-form-field appearance="fill">
+            <mat-label>Confirm password</mat-label>
+            <input name="cnfpass" ngModel matInput type="password">
+        </mat-form-field>
+    </div>
+    <div class="form-group m-2 p-1 row d-flex justify-content-around">
+        <button mat-raised-button color="primary" (click)="openVerticallyCentered(content)" class="col-md-2" type="submit">Submit</button>
+     </div>
+</form>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Admin Registration </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="newAd" class="modal-body">
+        <p>New User {{newAd.fullname}} Created succesfully.&hellip;</p><br>
+        <p>CollegeID : {{newAd.collegeID}}</p>
+      </div>
+    <div *ngIf="!newAd" class="modal-body">
+      <p>Something Went wrong &hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

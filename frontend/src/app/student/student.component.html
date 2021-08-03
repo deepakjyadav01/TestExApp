@@ -1,0 +1,234 @@
+<mat-tab-group mat-align-tabs="center">
+   <mat-tab label="Home">
+      <div class="d-flex shadow m-3 ml-5 mt-5 mr-5 p-3 bg-light justify-content-around">
+
+         <div *ngIf="roles" class="d-flex width=auto justify-content-around ml-5 mr-5 m-3 p-3">
+
+            <div class="card shadow">
+               <div class="card-header">
+                  Student
+               </div>
+               <div class="card-body">
+                  <h5 class="card-title">Student DashBoard</h5><br>
+                  <p>Welcome {{roles.username}}</p>
+                  <p *ngIf="roles.set && roles" class="card-text"> Lets Go!!! Let's Solve some Papers! wish you All the
+                     Best!!
+                  </p>
+                  <p *ngIf="!roles.set && roles" class="card-text">Inorder to proceed enter your profile details</p>
+                  <div class="d-flex  ">
+                     <a routerLink="/login" (click)="logout()" class="col-md-3 btn btn-primary ">Logout </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </mat-tab>
+
+
+   <mat-tab *ngIf="roles" label="Profile">
+      <div *ngIf="!roles.set" class="d-flex px-3 mt-5 justify-content-around">
+         <div class="col-md-5 border shadow p-3 mb-5 bg-white round">
+            <div class="p-3 display-6 text-center">Student Details </div>
+            <form autocomplete="off" (ngSubmit)="onProfile(Profile)" #Profile="ngForm"
+               class="d-flex mb-5 flex-column align-items-auto ">
+               <div class="form-group row m-1 p-1 ">
+                  <mat-form-field appearance="fill">
+                     <mat-label>FirstName</mat-label>
+                     <input name="firstname" ngModel class="col-md-4" type="text" matInput>
+                  </mat-form-field>
+               </div>
+               <div class="form-group row m-1 p-1 ">
+                  <mat-form-field appearance="fill">
+                     <mat-label>Lastname</mat-label>
+                     <input name="lastname" ngModel matInput type="text">
+                  </mat-form-field>
+               </div>
+               <div class="form-group row m-1 p-1 ">
+                  <mat-form-field appearance="fill">
+                     <mat-label>Email</mat-label>
+                     <input name="email" ngModel matInput type="text" placeholder="pat@example.com">
+                  </mat-form-field>
+               </div>
+               <div class="form-group row m-1 p-1 ">
+                  <mat-form-field appearance="fill">
+                     <mat-label>Phone</mat-label>
+                     <input name="phone" ngModel matInput type="text">
+                  </mat-form-field>
+               </div>
+               <div class="form-group row m-1 p-1 ">
+                  <mat-form-field appearance="fill">
+                     <mat-label>rollno</mat-label>
+                     <input name="rollno" ngModel matInput type="number">
+                  </mat-form-field>
+               </div>
+               <div class="form-group row m-1 p-1 ">
+                  <mat-radio-group type="text" name="gender" ngModel aria-label="Gender">
+                     <mat-label>Gender</mat-label><br>
+                     <mat-radio-button value="Male">Male&nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="Female">Female&nbsp;&nbsp; </mat-radio-button>
+                     <mat-radio-button value="Others">Others &nbsp;&nbsp; </mat-radio-button>
+                  </mat-radio-group>
+               </div>
+               <div class="form-group row m-2 p-1 ">
+                  <mat-radio-group type="text" name="year" ngModel aria-label="Year">
+                     <mat-label>Year</mat-label><br>
+                     <mat-radio-button value="FE">FE&nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="SE">SE&nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="TE">TE&nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="BE">BE&nbsp;&nbsp;</mat-radio-button>
+                  </mat-radio-group>
+               </div>
+               <div class="form-group row m-2 p-1 ">
+                  <mat-radio-group type="text" name="branch" ngModel aria-label="Year">
+                     <mat-label>Branch</mat-label><br>
+                     <mat-radio-button value="ELEC">ELEC &nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="EXTC">EXTC &nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="IT">IT &nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="CMPN">CMPN &nbsp;&nbsp;</mat-radio-button>
+                  </mat-radio-group>
+               </div>
+               <div class="form-group row m-2 p-1 ">
+                  <mat-radio-group type="text" name="class" ngModel aria-label="Gender">
+                     <mat-label>class</mat-label><br>
+                     <mat-radio-button value="I">I&nbsp;&nbsp;</mat-radio-button>
+                     <mat-radio-button value="II">II&nbsp;&nbsp; </mat-radio-button>
+                  </mat-radio-group>
+               </div>
+               <div class="form-group m-2 p-1 col-md-6 align-items-center">
+                  <button mat-raised-button color="primary" type="submit">Submit</button>
+               </div>
+            </form>
+         </div>
+      </div>
+
+      <div class="container-fluid" *ngIf="roles.set && studentProfile">
+         <div class="page-content page-container" id="page-content">
+            <div class="padding">
+               <div class="row container d-flex justify-content-center">
+                  <div class="col-xl-12 col-md-12">
+                     <div class="card user-card-full">
+                        <div class="row m-l-0 m-r-0">
+                           <div class="col-md-4 bg-c-lite-green user-profile">
+                              <div class="card-block text-center text-white">
+                                 <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                                       class="img-radius" alt="User-Profile-Image"> </div>
+                                 <h6 class="f-w-600"> {{studentProfile.firstname}} {{studentProfile.lastname}}</h6>
+                                 <p>{{studentProfile.year}} {{studentProfile.branch}} {{studentProfile.class}}</p> <i
+                                    class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                              </div>
+                           </div>
+                           <div class="col-sm-8">
+                              <div class="card-block">
+                                 <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                       <p class="m-b-10 f-w-600">Email</p>
+                                       <h6 class="text-muted f-w-400">{{studentProfile.email}}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                       <p class="m-b-10 f-w-600">Phone</p>
+                                       <h6 class="text-muted f-w-400">{{studentProfile.phone}}</h6>
+                                    </div>
+                                 </div>
+                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
+                                 <div class="row">
+                                    <div class="col-sm-6">
+                                       <p class="m-b-10 f-w-600">Rollno</p>
+                                       <h6 class="text-muted f-w-400">{{studentProfile.rollno}}</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                       <p class="m-b-10 f-w-600">Gender</p>
+                                       <h6 class="text-muted f-w-400">{{studentProfile.gender}}</h6>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </mat-tab>
+   <mat-tab *ngIf="roles.set && studentProfile" label="Tests">
+      <div *ngIf="tests != 0" class="d-flex flex-column shadow m-3 ml-5 mt-5 mr-5 p-3 bg-white ">
+         <div class="p-3 ml-2 m-3 p-3 display-6 bg-light text-center">Tests</div>
+         <div *ngIf="tests == 0" class="d-flex justify-content-center">
+            No Tests Available !!!... </div>
+         <div class="container" *ngFor="let t of tests ;let i=index">
+            <div *ngIf="tests[i].set"
+             class="card shadow border-5 pt-1 active pb-0">
+               <div class="card-body ">
+                  <div class="row">
+                     <div class="col-12 ">
+                        <h4 class="card-title "><b>{{t.testname}}</b></h4>
+                     </div>
+                     <div class="col">
+                        <h6 class="card-subtitle mb-2 text-muted">
+                           <p class="card-text text-muted small "> <img
+                                 src="https://img.icons8.com/metro/26/000000/star.png" class="mr-1 " width="19"
+                                 height="19" id="star"> <span class="vl mr-2 ml-0"></span> Created by
+                              <span class="font-weight-bold">{{t.Createdby}}</span>
+                           </p>
+                        </h6>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-footer d-flex-row bg-white px-0 ">
+                  <div class="form-group m-3 p-1  ">
+                     <button (click)="test(t)" mat-raised-button color="primary" class="col-md-3"
+                        type="submit">Start</button>
+                  </div>
+                  <!-- <div class="form-group col-md-3 ">
+                     <button 
+                     mat-button color="primary" type="submit">View Result</button>        
+                   </div>   -->
+
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div *ngIf="tests == 0"
+         class="d-flex display-6 flex-column align-items-center shadow m-3 ml-5 mt-5 mr-5 p-3 bg-white ">
+         No Tests Available At this Point!!!!<br>
+         <span> Sit Back And Relax... </span>
+      </div>
+
+   </mat-tab>
+
+
+   <mat-tab *ngIf="results != 0" label="Result">
+      <div class="d-flex flex-column shadow m-3 ml-5 mt-5 mr-5 p-3 bg-white ">
+         <div class="p-3 ml-2 m-3 p-3 display-6 bg-light text-center">Result</div>
+         <div class="container" *ngFor="let r of results ;let i=index">
+            <div *ngIf="results[i].submitted" class="card shadow border-5 pt-1 active pb-0">
+               <div class="card-body ">
+                  <div class="row">
+                     <div class="col-12 ">
+                        <h4 class="card-title "><b>{{r.testname}}</b></h4>
+                     </div>
+                     <div class="col">
+                     </div>
+                  </div>
+               </div>
+               <div class="card-footer d-flex-row bg-white px-0 ">
+                  <div class="form-group m-3 p-1  ">
+                     <button (click)="result(r)" mat-raised-button color="primary" class="col-md-3"
+                        type="submit">View Result</button>
+                  </div>
+                  <!-- <div class="form-group col-md-3 ">
+                     <button 
+                     mat-button color="primary" type="submit">View Result</button>        
+                   </div>   -->
+
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+   </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,88 @@
+<div class="p-3 display-6 text-center">Paper Details </div>
+<form autocomplete="off"  (ngSubmit)="onpaper(Cpaper)" #Cpaper="ngForm"
+class="d-flex mb-2 flex-column  ">
+   <div class="form-group row m-1 p-1 ">
+      <div class="col-md-4">
+         <mat-form-field appearance="fill">
+            <mat-label>TestName</mat-label>
+            <input name="name" ngModel type="text" matInput>
+         </mat-form-field>
+      </div>
+      <div class="col-md-4">
+         <mat-form-field appearance="fill">
+            <mat-label>No.of.Questions</mat-label>
+            <input name="questions" ngModel matInput type="number">
+         </mat-form-field>
+      </div>
+      <div class="col-md-4">
+         <mat-form-field appearance="fill">
+            <mat-label>Marks.Per.Question</mat-label>
+            <input name="MperQ" ngModel matInput type="number">
+         </mat-form-field>
+      </div>
+   </div>
+   <div class="form-group row m-1 p-1 justify-content-around">
+      <div class="col-md-4">
+         <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput name="date"  ngModel [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field>
+      </div>
+      <div class="col-md-5">
+         <mat-form-field appearance="fill">
+            <mat-label>Timelimit(in Minutes)</mat-label>
+            <input name="timelimit" ngModel matInput type="number">
+         </mat-form-field>
+      </div>
+   </div>
+   <div class="form-group row m-1 p-1 ">
+      <mat-radio-group type="text" name="year" ngModel aria-label="Year">
+         <mat-label>Year</mat-label><br>
+         <mat-radio-button value="FE">FE&nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="SE">SE&nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="TE">TE&nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="BE">BE&nbsp;&nbsp;</mat-radio-button>
+      </mat-radio-group>
+   </div>
+   <div class="form-group row m-1 p-1 ">
+      <mat-radio-group type="text" name="branch" ngModel aria-label="Branch">
+         <mat-label>Branch</mat-label><br>
+         <mat-radio-button value="ELEC">ELEC &nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="EXTC">EXTC &nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="IT">IT &nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="CMPN">CMPN &nbsp;&nbsp;</mat-radio-button>
+      </mat-radio-group>
+   </div>
+   <div class="form-group row m-1 p-1 ">
+      <mat-radio-group type="text" name="class" ngModel aria-label="class">
+         <mat-label>class</mat-label><br>
+         <mat-radio-button value="I">I&nbsp;&nbsp;</mat-radio-button>
+         <mat-radio-button value="II">II&nbsp;&nbsp; </mat-radio-button>
+      </mat-radio-group>
+   </div>
+   <div class="form-group m-1 p-1 row d-flex justify-content-around">
+      <button mat-raised-button color="primary" (click)=" openVerticallyCentered(content)" class="col-md-2" type="submit">Submit</button>
+   </div>
+</form>
+
+<ng-template #content let-modal>
+   <div class="modal-header">
+     <h4 class="modal-title">Paper Creation</h4>
+     <button type="button" class="close" aria-label="Close" (click)="reload()" (click)="modal.dismiss('Cross click')">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="Newpaper" class="modal-body">
+       <p>New Test {{Newpaper}} Created succesfully.&hellip;</p><br>
+     </div>
+   <div *ngIf="!Cpaper" class="modal-body">
+     <p>Something Went wrong &hellip;</p>
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-light" (click)="reload()" (click)="modal.close('Close click')">Close</button>
+   </div>
+ </ng-template>

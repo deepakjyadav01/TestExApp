@@ -1,0 +1,42 @@
+<div class="container-fluid ">
+    <div class="d-flex px-3 mt-5 justify-content-around">
+        <div class="col-md-4 border shadow p-3 mb-5 mt-2 bg-light round">
+            <div class="p-3 display-6 text-center">Admin Login </div>
+            <form    (ngSubmit)="onAlogin(admin)" #admin="ngForm" class="d-flex mb-5 flex-column align-items-center ">
+                <div class="form-group row m-2 p-1 ">
+                    <input name="collegeID" ngModel type="text" class="form-control noborder" placeholder="CollegeID">
+                </div>
+                <div class="form-group row m-2 p-1 ">
+                    <input name="email" ngModel type="text" class="form-control noborder" placeholder="Email_id">
+                </div>
+                <div class="form-group row m-2 p-1 ">
+                    <input name="password" ngModel type="password" class="form-control noborder" placeholder="password">
+                </div>
+                <div class="form-group row m-2 p-1 ">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="col-md-4 border shadow p-3 mb-5 bg-light round">
+            <div class="p-3 display-6 text-center">Student Login </div>
+            <form autocomplete="off" (ngSubmit)="onSlogin(student)" #student="ngForm"
+                class="d-flex mb-5 flex-column align-items-center mt-3">
+                <div class="form-group row m-2 p-1 ">
+                    <input name="username" ngModel type="text" class="form-control noborder" placeholder="Username">
+                </div>
+                <div class="form-group row m-2 p-1 ">
+                    <input name="password" ngModel type="password" class="form-control noborder" placeholder="password">
+                </div>
+                <div class="form-group row m-3 p-1 ">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+            </form>
+            <div class="row  p-1 ">
+                <button mat-button (click)="openDialog()"> New here!!! Register</button>
+            </div>
+        </div>
+    </div>
+</div>
+

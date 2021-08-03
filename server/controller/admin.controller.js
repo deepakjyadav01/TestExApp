@@ -54,7 +54,7 @@ module.exports.adminlogin = async (req, res) => {
         console.log(isSame);
 
         if (isMatch && isSame) {
-            res.status(200).send("login successfull");
+            res.status(200).json(user);
         } else {
             res.status(400).send("please enter valid user details and try again");
         }

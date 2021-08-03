@@ -1,0 +1,69 @@
+<div *ngIf="test" class="d-flex shadow m-3 mt-5ny6 ml-5 mr-5 bg-light justify-content-around">
+    <div class="p-3 display-6 text-center"> {{test.testname}}</div>
+</div>
+
+<div *ngIf="test.set" class="d-flex justify-content-around">
+    <div *ngIf="test" class="flex-column col-md-8 shadow m-5 p-3 bg-white align-items-center">
+        <div *ngFor="let q of Qs;let i = index;" class="card w-60 justify-content-center shadow m-5  p-3 bg-white ">
+            <form  autocomplete="off" #test="ngForm">
+                <div class="d-flex-column mt-2 card-body justify-content-around">
+                    <h5 class="card-title">{{i+1}}. Question</h5>
+                    <div class="card-text">
+                        <div class="d-flex m-2 p-2 row">
+                            <input class="form-control bg-white" ngModel name="question" [value]="q.question" type="text" placeholder="{{q.question}}" disabled="true">
+                        </div>
+                        <div class="d-flex m-2 p-2 row">
+                            <mat-radio-group type="text" name="rightans" ngModel>
+                                <mat-radio-button value="1"></mat-radio-button>
+                                <mat-form-field class="d-flex-column m-1 p-1 col-md-5">
+                                    <input class="form-control bg-white" name="option1" ngModel matInput [value]="q.option1" type="text" 
+                                    placeholder=" {{q.option1}}" readonly>
+                                </mat-form-field>
+                                <mat-radio-button class="ml-2" value="2"> </mat-radio-button>
+                                <mat-form-field class="d-flex-column   m-1 p-1  col-md-5">
+                                    <input class="form-control bg-white" name="option2" ngModel matInput [value]="q.option2" type="text" 
+                                    placeholder=" {{q.option2}}" readonly>
+                                </mat-form-field>
+                                <br>
+                                <mat-radio-button value="3"></mat-radio-button>
+                                <mat-form-field class="d-flex-column m-1 p-1 col-md-5">
+                                    <input class="form-control bg-white" name="option3" ngModel matInput [value]="q.option3" type="text"
+                                     placeholder=" {{q.option3}}" readonly>
+                                </mat-form-field>
+                                <mat-radio-button class="ml-2" value="4"> </mat-radio-button>
+                                <mat-form-field class="d-flex-column  m-1 p-1  col-md-5">
+                                    <input class="form-control  bg-white" name="option4" ngModel matInput [value]="q.option4" type="text"
+                                     placeholder=" {{q.option4}}" readonly>
+                                </mat-form-field>
+                            </mat-radio-group>
+                            <div class="form-group d-flex ">
+                                <button mat-button class="col-md-12" (click)="answers(test,i+1)" color="primary"
+                                    type="submit">Save</button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="form-group d-flex justify-content-around">
+            <button mat-raised-button color="primary"  (click)=" openVerticallyCentered(content)" (click)="getData()" type="submit">Submit</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div *ngIf="test"  class="modal-header">
+      <h4 class="modal-title">Test Succesfully</h4>
+      <button type="button" class="close" aria-label="Close"  (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <p> Test {{test.testname}} Submitted succesfully.&hellip;</p><br>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light"  (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

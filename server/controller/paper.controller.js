@@ -2,12 +2,13 @@
 require('../routes/route');
 require('../models/paper.model');
 require('../models/questions.model')
+require('../models/marks.model');
 
 //imports
 const mongoose = require('mongoose');
 const paper = require('../models/paper.model')
 const question = require('../models/questions.model');
-const marks = require('../models/questions.model')
+const marks = require('../models/marks.model')
 
 module.exports.papers = async (req, res) => {
   try {
@@ -44,7 +45,6 @@ module.exports.papers = async (req, res) => {
 
 module.exports.addquestions = async (req, res) => {
   try {
-
     let data = new question({
       questionID: req.body.questionID,
       question: req.body.question,
@@ -66,11 +66,35 @@ module.exports.addquestions = async (req, res) => {
 
 module.exports.getPaper = async (req, res) => {
   try {
-    const detail = await paper.findById({ _id: req.params.id1 });
+    const detail = await paper.findOne({ collegeID: req.params.clgID });
     res.status(200).json(detail);
 
   } catch (error) {
     res.status(400).json(error);
+  }
+}
+module.exports.fillset = async (req, res) => {
+  try {
+    const value = await paper.findOneAndUpdate({ testname: req.params.test }, {$set:{ set:"true"} },{new:true});
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).send("not set to true")
+  }
+}
+module.exports.delPaper = async (req, res) => {
+  try {
+    const value = await paper.findOneAndDelete({ testname: req.params.testname });
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).send("not deleted")
+  }
+}
+module.exports.delQ = async (req, res) => {
+  try {
+    const value = await question.deleteMany({ testname: req.params.testname });
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).send("not deleted")
   }
 }
 

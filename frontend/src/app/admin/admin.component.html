@@ -1,0 +1,152 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Home">
+    <div class="d-flex shadow m-3 ml-5 mt-5 mr-5 p-3 bg-light justify-content-around">
+      <div *ngIf="admin" class="d-flex justify-content-around m-2 p-2">
+        <div class="card shadow">
+          <div class="card-header">
+            ADMIN
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Admin DashBoard</h5><br>
+            <p>Welcome {{admin.fullname}} </p>
+            <p class="card-text">Inorder to create a new admin user, click on Sign-Up</p><br><br>
+            <div class="d-flex justify-content-around">
+              <div class="col-md-4"><a (click)="openDialog()" class="btn btn-primary">Sign-Up </a>
+              </div>
+
+              <div class="col-md-4"><a routerLink="/login" (click)="logout()" class=" btn btn-primary">Logout</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </mat-tab>
+  <mat-tab label="Paper">
+    <div *ngIf="Pcount == 0" class="d-flex shadow m-3 ml-5 mt-5 mr-5 p-3 bg-light justify-content-around">
+      <div class="d-flex justify-content-around m-2 p-2">
+        <div class="card shadow">
+          <div class="card-header">
+            ADMIN
+          </div>
+          <div *ngIf="admin" class="card-body">
+            <h5 class="card-title">Admin DashBoard</h5><br>
+            <p>Helloo!! {{admin.fullname}} </p>
+            <p class="card-text">Inorder to create your First Paper, click on create</p><br><br>
+            <div class="d-flex justify-content-around">
+              <div class=""><a (click)="openDialog1()" class="btn btn-primary">create</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="Pcount != 0 && papers" class="d-flex flex-column shadow m-3 ml-5 mt-5 mr-5 p-3 bg-light ">
+      <div class="container" *ngFor="let op of papers;let i=index;">
+        <div class="card border-5 pt-1 active pb-0">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-12 ">
+                <h4 class="card-title "><b>{{op.testname}}</b></h4>
+              </div>
+              <div class="col">
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <p class="card-text text-muted small "> <img src="https://img.icons8.com/metro/26/000000/star.png"
+                      class="mr-1 " width="19" height="19" id="star"> <span class="vl mr-2 ml-0"></span> Created by
+                    <span class="font-weight-bold">{{op.Createdby}}</span>
+                  </p>
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bg-white px-0 ">
+            <div class="form-group m-3 p-1  ">
+              <button *ngIf="!papers[i].set" (click)="addQ(op)" 
+              mat-raised-button color="primary" class="col-md-2" type="submit">Add Questions</button>
+              <button *ngIf="papers[i].set" (click)="view(op)"
+              mat-raised-button color="primary" class="d-flex-auto m-2 col-md-2" type="submit">Open</button> 
+              <button *ngIf="papers[i].set" (click)="delete(op)" (click)=" openVerticallyCentered(content)"
+              mat-raised-button color="primary" class="d-flex-auto m-2 col-md-2" type="submit">Delete</button>                
+            </div> 
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="Pcount != 0" class="d-flex shadow m-3 ml-5 mt-5 mr-5 p-3 bg-light justify-content-around">
+      <div class="card m-3 shadow">
+        <div class="card-header">
+          ADMIN
+        </div>
+        <div *ngIf="admin" class="card-body">
+          <h5 class="card-title">Admin DashBoard</h5><br>
+          <p> &nbsp;&nbsp;Helloo!! {{admin.fullname}} </p>
+          <p class="card-text"> &nbsp;&nbsp;Inorder To Create a New Paper, click on Create</p><br><br>
+          <div class="d-flex justify-content-around">
+            <a (click)="openDialog1()" class="btn btn-primary">create</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Deleted Succesfully</h4>
+        <button type="button" class="close" aria-label="Close"  (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="delP != [] " class="modal-body">
+          <p> Test {{delP.testname}} deleted succesfully.&hellip;</p><br>
+        </div>
+      <div *ngIf="delP == []" class="modal-body">
+        <p>Something Went wrong &hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light"  (click)="modal.close('Close click')">Close</button>
+      </div>
+    </ng-template>
+
+
+  </mat-tab>
+  <mat-tab *ngIf="Pcount != 0" label="Results">
+
+
+    <div *ngIf="Pcount != 0 " class="d-flex flex-column shadow m-3 ml-5 mt-5 mr-5 p-3 bg-light ">
+      <div class="container" *ngFor="let op of papers;let i=index;">
+        <div  class="card border-5 pt-1 active pb-0">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-12 ">
+                <h4 class="card-title "><b>{{op.testname}}</b></h4>
+              </div>
+              <div class="col-md-4">
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <p class="card-text text-muted small "> <img src="https://img.icons8.com/metro/26/000000/star.png"
+                      class="mr-1 " width="19" height="19" id="star"> <span class="vl mr-2 ml-0"></span> Created by
+                    <span class="font-weight-bold">{{op.Createdby}}</span>
+                  </p>
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer d-flex-row bg-white px-0 ">
+            <div class="form-group col-md-3 mt-3">
+              <button *ngIf="papers[i].set" (click)="result(op)" 
+              mat-raised-button color="primary" type="submit">View Results</button>        
+            </div> 
+            <div class="form-group col-md-3 ">
+              <button *ngIf="!papers[i].set" 
+              mat-button color="primary" type="submit">Add Questions First</button>        
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
