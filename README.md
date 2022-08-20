@@ -26,3 +26,41 @@ It is an Online Testing platform for creating,viewing and solving MCQ based ques
 #some of the drawbacks:
 1) frontend validation.(might not have covered much in this section,might have some bugs.)
 2) Backend Authentication with jwt Token.(will cover this shortly). 
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/deepakjyadav01/TestExApp.git
+```
+
+Go to the project directory
+
+```bash
+  cd server or cd frontend
+  //for backend server or frontend server
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start || ng serve 
+  //server      ||  frontend
+```
+
+
+   
+## Tech Stack
+**Client:** Angular
+
+**Server:** Node, Express
+
+**Database:** MongoDB 
